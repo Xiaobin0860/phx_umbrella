@@ -1,7 +1,7 @@
 defmodule PhxWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :phx_web
 
-  socket "/socket", PhxWeb.UserSocket,
+  socket "/phx/socket", PhxWeb.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -10,7 +10,7 @@ defmodule PhxWeb.Endpoint do
   # You should set gzip to true if you are running phx.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/",
+    at: "/phx",
     from: :phx_web,
     gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)

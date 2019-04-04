@@ -13,7 +13,7 @@ defmodule PhxWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", PhxWeb do
+  scope "/phx", PhxWeb do
     pipe_through :browser
 
     get "/", PageController, :index
