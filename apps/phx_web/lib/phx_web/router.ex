@@ -1,6 +1,8 @@
 defmodule PhxWeb.Router do
   use PhxWeb, :router
 
+  alias PhxWeb.Guardian
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -13,6 +15,10 @@ defmodule PhxWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :jwt_authenticated do
+    plug Guardian.AuthPipeline
+  end
+
   scope "/phx", PhxWeb do
     pipe_through :browser
 
@@ -20,7 +26,16 @@ defmodule PhxWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", PhxWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", PhxWeb do
+    pipe_through :api
+
+    post "/sign_up", UserController, :create
+    post "/sign_in", UserController, :sign_in
+  end
+
+  scope "/api", PhxWeb do
+    pipe_through [:api, :jwt_authenticated]
+
+    get "/info", UserController, :show
+  end
 end

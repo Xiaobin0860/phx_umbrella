@@ -9,3 +9,7 @@ use Mix.Config
 config :phx_web, PhxWeb.Endpoint,
   http: [port: 4002],
   server: false
+
+config :phx_web, PhxWeb.Guardian,
+  issuer: "phx_web",
+  secret_key: "UfMDa7a0j5dGOyHEmEA0M7OjNn9763Cf8lc1ykOOhYB8ZJPqC0uh/lYF0A2MrgNt"

@@ -38,6 +38,7 @@ defmodule Phx.MixProject do
     [
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
+      {:argon2_elixir, "~> 2.0"},
       {:jason, "~> 1.0"}
     ]
   end
