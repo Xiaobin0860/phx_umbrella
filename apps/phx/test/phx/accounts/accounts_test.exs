@@ -8,7 +8,11 @@ defmodule Phx.AccountsTest do
     alias A
 
     @valid_attrs %{email: "mail@foxmail.com", password: "some password"}
-    @create_attrs %{email: "mail@foxmail.com", password: "some password", password_confirmation: "some password"}
+    @create_attrs %{
+      email: "mail@foxmail.com",
+      password: "some password",
+      password_confirmation: "some password"
+    }
     @update_attrs %{email: "updated@foxmail.com", password: "some updated password"}
     @invalid_attrs %{email: nil, password: nil}
 

@@ -31,6 +31,7 @@ defmodule PhxWeb.Router do
 
     post "/sign_up", UserController, :create
     post "/sign_in", UserController, :sign_in
+    post "/sign_out", UserController, :sign_out
   end
 
   scope "/api", PhxWeb do

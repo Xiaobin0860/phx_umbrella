@@ -20,9 +20,22 @@ defmodule PhxWeb.FallbackController do
     |> render(:"404")
   end
 
+  def call(conn, {:error, :unprocessable_entity}) do
+    conn
+    |> put_status(:unprocessable_entity)
+    |> json(%{errors: "Data error"})
+  end
+
   def call(conn, {:error, :unauthorized}) do
     conn
     |> put_status(:unauthorized)
-    |> json(%{error: "Login error"})
+    |> json(%{errors: "Login error"})
+  end
+
+  def auth_error(conn, {type, _reason}, _opts) do
+    conn
+    |> put_status(401)
+    |> json(%{errors: to_string(type)})
+    |> halt()
   end
 end

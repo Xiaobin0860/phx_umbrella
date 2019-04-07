@@ -38,4 +38,25 @@ defmodule PhxWeb.UserControllerTest do
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
+
+  describe "sign in" do
+    test "renders errors when data is invalid", %{conn: conn} do
+      conn = post(conn, Routes.user_path(conn, :sign_in), @invalid_attrs)
+      assert json_response(conn, 401)["errors"] != %{}
+    end
+
+    test "renders user when data is valid", %{conn: conn} do
+      user = fixture(:user)
+      ret_conn = post(conn, Routes.user_path(conn, :sign_in), @create_attrs)
+      assert %{"jwt" => jwt} = json_response(ret_conn, 200)
+
+      ret_conn =
+        conn
+        |> put_req_header("authorization", "Bearer " <> jwt)
+        |> get(Routes.user_path(conn, :show))
+
+      assert %{"id" => _id, "email" => email} = json_response(ret_conn, 200)
+      assert user.email == email
+    end
+  end
 end

@@ -117,6 +117,10 @@ defmodule Phx.Accounts do
          do: verify_password(password, user)
   end
 
+  defp email_password_auth(_email, _password) do
+    {:error, :unprocessable_entity}
+  end
+
   defp get_by_email(email) when is_binary(email) do
     case Repo.get_by(User, email: email) do
       nil ->
